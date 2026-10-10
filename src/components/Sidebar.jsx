@@ -1,33 +1,37 @@
+const options = [
+  { id: 'resumen', label: 'Inicio', icon: '🏠' },
+  { id: 'pacientes', label: 'Pacientes', icon: '👥' },
+  { id: 'citas', label: 'Citas médicas', icon: '📅' },
+  { id: 'estadisticas', label: 'Estadísticas', icon: '📈' },
+];
 
-function Sidebar() {
+/** Menú lateral controlado por el padre: no recarga la página al cambiar la vista. */
+export default function Sidebar({ activeSection, onChangeSection, activeTab }) {
   return (
     <aside className="sidebar">
       <div className="sidebar-brand">
-        <div className="sidebar-icon">✚</div>
-        <div>
-          <h2>SaludMetrics</h2>
-          <span>Centro de Salud</span>
-        </div>
+        <span className="sidebar-brand-symbol" aria-hidden="true">✚</span>
+        <div><strong>SaludMetrics</strong><small>Centro de salud · Demo</small></div>
       </div>
-
-      <p className="sidebar-label">MENÚ PRINCIPAL</p>
-
-      <nav className="sidebar-menu">
-        <a href="#inicio" className="sidebar-link">
-          🏠 Inicio
-        </a>
-
-        <a href="#indicadores" className="sidebar-link">
-          📊 Indicadores de salud
-        </a>
+      <div className="sidebar-heading">PANEL DE SALUD</div>
+      <nav className="sidebar-menu" aria-label="Menú de salud">
+        {options.map((option) => (
+          <button
+            type="button"
+            className={`sidebar-link ${activeTab === 'dashboard' && activeSection === option.id ? 'selected' : ''}`}
+            key={option.id}
+            onClick={() => onChangeSection(option.id)}
+            aria-current={activeTab === 'dashboard' && activeSection === option.id ? 'page' : undefined}
+          >
+            <span aria-hidden="true">{option.icon}</span> {option.label}
+          </button>
+        ))}
       </nav>
-
-      <div className="sidebar-footer">
-        <p>Panel de monitoreo</p>
-        <span>React + Vite | 2026</span>
+      <div className="sidebar-bottom">
+        <strong>Práctica Semana 05</strong>
+        <span>React · Vite · JSX · Props · CSR</span>
+        <small>Aplicación académica, sin datos reales</small>
       </div>
     </aside>
   );
 }
-
-export default Sidebar;

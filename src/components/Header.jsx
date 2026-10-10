@@ -1,30 +1,37 @@
+const tabs = [
+  { id: 'dashboard', label: '📊 Dashboard' },
+  { id: 'componentes', label: '🧩 Componentes' },
+  { id: 'estilado', label: '🎨 Estilado' },
+  { id: 'csr', label: '⚡ CSR' },
+];
 
-/**
- * Encabezado principal de SaludMetrics.
- * @param {Object} props
- * @param {string} props.title
- * @param {string} props.subtitle
- */
-function Header({ title, subtitle }) {
+/** Encabezado con navegación SPA; los eventos se comunican al componente padre por props. */
+export default function Header({ activeTab, onChangeTab }) {
   return (
-    <header className="dashboard-header">
-      <div className="dashboard-logo">✚</div>
-
-      <div className="header-information">
-        <h1>{title}</h1>
-        <p>{subtitle}</p>
+    <header className="top-header">
+      <div className="top-header-intro">
+        <div className="top-title-row">
+          <span className="title-symbol" aria-hidden="true">✚</span>
+          <div>
+            <h1>SaludMetrics</h1>
+            <p>Sistema de Monitoreo de Indicadores de Salud</p>
+          </div>
+        </div>
+        <span className="demo-tag">● Datos ficticios · Octubre 2026</span>
       </div>
-
-      <div className="header-meta">
-        <span className="header-date">
-          📅 Octubre 2026
-        </span>
-        <span className="header-chip">
-          ● Datos demostrativos
-        </span>
-      </div>
+      <nav className="top-tabs" aria-label="Secciones de la práctica">
+        {tabs.map((tab) => (
+          <button
+            type="button"
+            key={tab.id}
+            className={`top-tab ${activeTab === tab.id ? 'is-active' : ''}`}
+            aria-current={activeTab === tab.id ? 'page' : undefined}
+            onClick={() => onChangeTab(tab.id)}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </nav>
     </header>
   );
 }
-
-export default Header;

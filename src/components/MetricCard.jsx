@@ -1,35 +1,24 @@
-
 import styles from '../styles/MetricCard.module.css';
 
 /**
- * Tarjeta reutilizable para indicadores de salud.
- *
+ * Tarjeta que recibe datos del componente padre mediante props.
  * @param {Object} props
- * @param {string} props.title
- * @param {string} props.value
- * @param {string} props.icon
- * @param {string} props.color
- * @param {React.ReactNode} props.children
+ * @param {string} props.title Nombre del indicador.
+ * @param {string} props.value Valor mostrado.
+ * @param {string} props.icon Símbolo visual.
+ * @param {string} props.color Color de acento.
+ * @param {import('react').ReactNode} props.children Descripción anidada.
  */
-function MetricCard({ title, value, icon, color, children }) {
+export default function MetricCard({ title, value, icon, color, children }) {
   return (
     <article className={styles.card}>
-      <div
-        className={styles.icon}
-        style={{ backgroundColor: color }}
-      >
-        {icon}
+      <div className={styles.top}>
+        <span className={styles.icon} style={{ backgroundColor: color }} aria-hidden="true">{icon}</span>
+        <span className={styles.tag}>Indicador</span>
       </div>
-
-      <div className={styles.information}>
-        <p className={styles.title}>{title}</p>
-        <h2 className={styles.value}>{value}</h2>
-        <div className={styles.description}>
-          {children}
-        </div>
-      </div>
+      <p className={styles.title}>{title}</p>
+      <strong className={styles.value}>{value}</strong>
+      <div className={styles.description}>{children}</div>
     </article>
   );
 }
-
-export default MetricCard;

@@ -1,5 +1,6 @@
 
 import '../styles/Dashboard.css';
+import AtencionesChart from './AtencionesChart';
 import Header from './Header';
 import MetricCard from './MetricCard';
 import Sidebar from './Sidebar';
@@ -93,7 +94,9 @@ function Dashboard() {
         </div>
 
       </section>
-
+      
+  <AtencionesChart />
+  
     </main>
      </>
   );
